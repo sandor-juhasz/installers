@@ -1,0 +1,19 @@
+#!/bin/bash
+###############################################################################
+# Installs everything onto a WSL Ubuntu 22.04.
+#
+# Usage:
+# 1. Log into a freshly installed WSL Ubuntu 22.04.
+# 2. If logged in as non-root, switch to root with `sudo su`
+# 3. Execute the following commands: 
+#
+#    cd tmp
+#    git clone https://github.com/sandor-juhasz/devcontainer-features.git
+#    cd installers/src
+#    host-os-installers/wsl-ubuntu-installer
+#
+###############################################################################
+
+DEFAULT_USERNAME=developer
+
+echo "Setting up WSL Ubuntu..."
