@@ -15,8 +15,10 @@ echo "Installing Git Credential manager..."
 
 echo "Installing and configuring Git Credential Manager Core..."
 if is_wsl; then
-    as_user 'git config --global credential.helper "/mnt/c/Program\\ Files/Git/mingw64/bin/git-credential-manager.exe"'
-    as_user 'git config --global credential.https://dev.azure.com.useHttpPath true'
+    su --login "$USERNAME" <<'EOF'
+    git config --global credential.helper "/mnt/c/Program\\ Files/Git/mingw64/bin/git-credential-manager.exe"
+    git config --global credential.https://dev.azure.com.useHttpPath true
+EOF
 else
     apt_install "dotnet-sdk-6.0"
 
