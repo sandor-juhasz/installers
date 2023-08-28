@@ -165,3 +165,11 @@ function default_user() {
     done
     echo "root"
 }
+
+#
+# Tests if the process is running from Microsoft WSL
+# https://stackoverflow.com/questions/38086185/how-to-check-if-a-program-is-run-in-bash-on-ubuntu-on-windows-and-not-just-plain
+#
+function is_wsl() {
+    grep -qEi "(Microsoft|WSL)" /proc/version &> /dev/null
+}

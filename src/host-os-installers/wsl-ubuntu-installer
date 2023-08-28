@@ -14,14 +14,36 @@
 #
 ###############################################################################
 
+set -e 
+
 export DEFAULT_USERNAME=developer
 
 source lib/common.sh
 
 echo "Setting up WSL Ubuntu..."
 
+apt-get update
+apt-get -y upgrade
+
 installers/default-user.sh developer
 installers/shell-base.sh developer
 installers/zsh.sh developer
+
+#
+# Installing an extensible Python environment with System Python.
+#
+export USERNAME=$DEFAULT_USERNAME
+installers/pyenv.sh
+installers/python.sh developer system
+installers/pipx.sh developer
+
+# installers/docker.sh    # No additional steps are needed. Enable the distro in the Docker Engine settings.
+# installers/vscode.sh    # No additional steps are needed. VSCode is available in WSL if installed on host OS.
+
+#
+# Git settings
+#
+installers/gh.sh
+installers/git-credential-manager.sh developer
 
 # TODO: Install the Dotfiles for developer
