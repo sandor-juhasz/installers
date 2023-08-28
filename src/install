@@ -1,0 +1,20 @@
+#!/bin/bash
+###############################################################################
+# This is the main entry point to install features and programs.
+#
+# This script must be run as root.
+#
+# usage examples:
+# 
+# install python-base-environment
+#
+###############################################################################
+
+set -e
+
+source lib/common.sh
+
+export USERNAME="$(default_user)"
+echo "Default user: $USERNAME"
+
+./features/$1.sh
