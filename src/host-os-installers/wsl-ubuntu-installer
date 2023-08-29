@@ -47,6 +47,5 @@ installers/gh.sh
 installers/git-credential-manager.sh developer
 
 
-installers/utiltities.sh
 installers/devpm.sh developer
 installers/dotfiles.sh developer
