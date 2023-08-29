@@ -26,8 +26,8 @@ apt-get update
 apt-get -y upgrade
 
 installers/default-user.sh developer
-installers/shell-base.sh developer
 installers/zsh.sh developer
+installers/shell-base.sh developer
 
 #
 # Installing an extensible Python environment with System Python.
