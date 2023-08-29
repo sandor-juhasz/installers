@@ -17,7 +17,7 @@ PYTHON_VERSION=${2:-3.11.4}
 
 if [[ "${PYTHON_VERSION}" == "system" ]]; then
     echo "Installing pip for System python..."
-    apt_install python3-pip
+    apt_install python3-pip python3.10-venv
     echo "Configuring System python as default..."
     as_user "pyenv global system"
     as_user "mkdir -p ~/.local/bin"
