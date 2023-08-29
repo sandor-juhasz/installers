@@ -16,6 +16,8 @@ mkdir -p ~/.config/bashrc.d \
          ~/.config/zshrc.d \
          ~/.local/bin
 
+echo 'export PATH=$HOME/.local/bin:$PATH' >~/.config/profile.d/local-bin.sh
+
 if [[ ! -e ~/.bashrc ]] || ! grep -q '>>> ~/.config/bashrc.d support >>>' ~/.bashrc ; then 
     echo "Updating ~/.bashrc"
     cat <<'EOF' >>~/.bashrc

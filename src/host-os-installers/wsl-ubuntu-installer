@@ -38,7 +38,7 @@ installers/python.sh developer system
 installers/pipx.sh developer
 
 # installers/docker.sh    # No additional steps are needed. Enable the distro in the Docker Engine settings.
-# installers/vscode.sh    # No additional steps are needed. VSCode is available in WSL if installed on host OS.
+installers/vscode.sh
 
 #
 # Git settings
@@ -46,4 +46,7 @@ installers/pipx.sh developer
 installers/gh.sh
 installers/git-credential-manager.sh developer
 
-# TODO: Install the Dotfiles for developer
+
+installers/utiltities.sh
+installers/devpm.sh developer
+installers/dotfiles.sh developer
