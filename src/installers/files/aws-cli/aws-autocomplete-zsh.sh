@@ -3,6 +3,8 @@
 # Enabling Bash autocomplete for AWS CLI.
 #
 
-autoload bashcompinit && bashcompinit
-autoload -Uz compinit && compinit
-complete -C '/usr/local/bin/aws_completer' aws
+if [[ -e /usr/local/bin/aws_completer ]]; then
+    autoload bashcompinit && bashcompinit
+    autoload -Uz compinit && compinit
+    complete -C '/usr/local/bin/aws_completer' aws
+fi
