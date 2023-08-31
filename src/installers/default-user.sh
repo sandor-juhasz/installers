@@ -24,5 +24,9 @@ if ! grep -q "1000:1000" /etc/passwd; then
 default = ${USERNAME}
 EOF
 else
-    echo "Found user with default UID, doing nothing."
+    USERNAME=$(grep 1000 /etc/passwd | awk -F ':' '{print $1}')
+    echo "Found user with default UID with username $USERNAME."
+    echo "Disabling Sudo password for $USERNAME..."
+    echo "$USERNAME ALL=(ALL) NOPASSWD: ALL" >>/etc/sudoers    
 fi
+
