@@ -3,6 +3,17 @@
 #
 # Installs Docker Engine
 #
+# This install script can be used to install the latest Docker engine on a
+# standalone Linux distro or on WSL. 
+#
+# On WSL the dockerd shuld be started in a separate terminal or some other
+# init mechanism is necessary.
+# TODO: try out the new WSL systemd support.
+#       https://devblogs.microsoft.com/commandline/systemd-support-is-now-available-in-wsl/
+#
+# Note: Docker Engine cannot be used in tandem with Docker Desktop. They both
+#       share state under /var/lib/docker.
+#
 ###############################################################################
 
 set -e
