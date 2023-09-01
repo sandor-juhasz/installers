@@ -145,6 +145,11 @@ function apt_install() {
     fi
 }
 
+function apt_remove() {
+    export DEBIAN_FRONTEND=noninteractive
+    apt-get -y remove "$@"
+}
+
 function as_user() {
     local cmd="$*"
     if [ "$(id -u)" -eq 0 ] && [ "$USERNAME" != "root" ]; then
