@@ -14,6 +14,14 @@ function install() {
     if [[ "${INSTALL_MAVEN}" = "true" ]]; then
         installers/maven.sh "${USERNAME}" "${MAVEN_VERSION}"
     fi
+
+    if [[ "${INSTALL_IJAVA_KERNEL}" = "true" ]]; then
+        if [[ ! -d "/home/$USERNAME/.pyenv" ]]; then
+            export DEFAULT_PYTHON_VERSION="system"
+            features/python-base-environment.sh
+        fi
+        installers/ijava.sh "${USERNAME}"
+    fi
 }
 
 install
