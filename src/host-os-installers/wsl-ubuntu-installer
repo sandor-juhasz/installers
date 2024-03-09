@@ -1,6 +1,13 @@
 #!/bin/bash
 ###############################################################################
-# Installs everything onto a WSL Ubuntu 22.04.
+# Installs everything needed to work with development containers on a 
+# WSL Ubuntu 22.04 VM.
+#
+# Parameters    
+#     --default-username=username   Default: "developer"
+#     --default-password=password   Default: "welcome"
+#     --install-docker-engine       Default: "false" 
+#     --install-dotfiles            Default: "false"
 #
 # Usage:
 # 1. Log into a freshly installed WSL Ubuntu 22.04.
@@ -10,42 +17,81 @@
 #    cd tmp
 #    git clone https://github.com/sandor-juhasz/installers.git
 #    cd installers/src
-#    host-os-installers/wsl-ubuntu-installer
+#    host-os-installers/wsl-ubuntu-installer    # Add additional parameters
 #
 ###############################################################################
 
 set -e 
 
-export DEFAULT_USERNAME=developer
-
 source lib/common.sh
 
+DEFAULT_USERNAME=developer
+DEFAULT_PASSWORD=welcome
+INSTALL_DOCKER_ENGINE=false
+INSTALL_DOTFILES=false
+for i in "$@"; do
+  case $i in
+    --install-dotfiles)
+      INSTALL_DOTFILES=true
+      shift # past argument=value
+      ;;
+    --install-docker-engine)
+      INSTALL_DOCKER_ENGINE=true
+      shift # past argument=value
+      ;;
+    --default-username=*)
+      DEFAULT_USERNAME="${i#*=}"
+      shift # past argument=value
+      ;;
+    --default-password=*)
+      DEFAULT_PASSWORD="${i#*=}"
+      shift # past argument=value
+      ;;
+    -*)
+      echo "Unknown option $i"
+      exit 1
+      ;;
+    *)
+      ;;
+  esac
+done
+
+export DEFAULT_USERNAME=$DEFAULT_USERNAME
+
 echo "Setting up WSL Ubuntu..."
+echo "   Default username: $DEFAULT_USERNAME"
+echo "   Default password: $DEFAULT_PASSWORD"
+echo "   Install Docker Engine: $INSTALL_DOCKER_ENGINE"
+echo "   Install Dotfiles: $INSTALL_DOTFILES"
 
 apt-get update
 apt-get -y upgrade
 
-installers/default-user.sh developer
-installers/zsh.sh developer
-installers/shell-base.sh developer
+installers/default-user.sh "${DEFAULT_USERNAME}"
+installers/zsh.sh "${DEFAULT_USERNAME}"
+installers/shell-base.sh "${DEFAULT_USERNAME}"
 
 #
 # Installing an extensible Python environment with System Python.
 #
 export USERNAME=$DEFAULT_USERNAME
 installers/pyenv.sh
-installers/python.sh developer system
-installers/pipx.sh developer
+installers/python.sh "${DEFAULT_USERNAME}" system
+installers/pipx.sh "${DEFAULT_USERNAME}"
 
-# installers/docker.sh    # No additional steps are needed. Enable the distro in the Docker Engine settings.
+if [[ "$INSTALL_DOCKER_ENGINE" == true ]]; then
+    installers/docker.sh
+fi
 installers/vscode.sh
 
 #
 # Git settings
 #
 installers/gh.sh
-installers/git-credential-manager.sh developer
+installers/git-credential-manager.sh "${DEFAULT_USERNAME}"
 
 
-installers/devpm.sh developer
-installers/dotfiles.sh developer
+if [[ "$INSTALL_DOTFILES" == true ]]; then
+    installers/devpm.sh "${DEFAULT_USERNAME}"
+    installers/dotfiles.sh "${DEFAULT_USERNAME}"
+fi

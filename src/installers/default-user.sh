@@ -1,7 +1,7 @@
 #!/bin/bash
 ###############################################################################
 #
-# Creates the default user if does not exist.
+# Creates the default user if it does not exist.
 #
 ###############################################################################
 
@@ -10,7 +10,7 @@ set -e
 source lib/common.sh
 
 USERNAME=${1:-developer}
-PASSWORD=welcome
+PASSWORD=${2:-welcome}
 
 if ! grep -q "1000:1000" /etc/passwd; then
     echo "User with UID 1000 was not found, creating..."
