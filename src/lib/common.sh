@@ -178,3 +178,17 @@ function default_user() {
 function is_wsl() {
     grep -qEi "(Microsoft|WSL)" /proc/version &> /dev/null
 }
+
+## Downloads the file at the specified URL into a file.
+function download() {
+    local url=$1
+    local filename=$2
+
+    apt_install curl
+
+    # -f: fail silently without output.
+    # -L: follows redirects.
+    # -s: silent, don't show progress meter or error messages.
+    # -S: show error message if download fails
+    curl -fsSL "$url" -o "$filename"
+}
