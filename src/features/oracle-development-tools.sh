@@ -9,6 +9,7 @@
 set -e
 
 export INSTALL_INSTANTCLIENT=${INSTALL_INSTANTCLIENT:-"true"}
+export INSTALL_SQLCL=${INSTALL_SQLCL:-"false"}
 
 function install() {
     installers/shell-base.sh "${USERNAME}"
@@ -16,6 +17,15 @@ function install() {
     if [[ "${INSTALL_INSTANTCLIENT}" == "true" ]]; then
         installers/oracle-instantclient.sh "${USERNAME}"
     fi
+
+    if [[ "${INSTALL_SQLCL}" == "true" ]]; then
+        if ! which java >/dev/null; then
+            installers/sdkman.sh "${USERNAME}"
+            installers/java.sh "${USERNAME}" ""
+        fi
+        installers/oracle-sqlcl.sh "${USERNAME}"
+    fi
+
 }
 
 install
