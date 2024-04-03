@@ -22,6 +22,11 @@ function install() {
         fi
         installers/ijava.sh "${USERNAME}"
     fi
+
+    if [[ "${INSTALL_JMETER}" = "true" ]]; then
+        installers/jmeter.sh "${USERNAME}"
+    fi
+
 }
 
 install
