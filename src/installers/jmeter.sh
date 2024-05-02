@@ -7,6 +7,9 @@
 #       - Check signature
 #       - move checksum and signature check into the download function.
 #       - Headless installation option, this will not require X libraries.
+#
+# TODO: Use sdkman instead.
+# 
 ###############################################################################
 
 USERNAME=${1:-$(id -un)}
@@ -25,7 +28,7 @@ echo "Checking checksum..."
 sha512sum -c apache-jmeter-5.6.3.tgz.sha512
 
 echo "Installing..."
-apt_install xterm
+apt_install xterm libxtst6 libxi6
 tar xvzf apache-jmeter-5.6.3.tgz
 mv apache-jmeter-5.6.3 /opt
 ln -s /opt/apache-jmeter-5.6.3 /opt/apache-jmeter

@@ -7,6 +7,7 @@
 #
 
 function install() {
+    export
     installers/shell-base.sh "${USERNAME}"
     installers/sdkman.sh "${USERNAME}"
     installers/java.sh "${USERNAME}" "${JAVA_VERSION}"
@@ -27,6 +28,13 @@ function install() {
         installers/jmeter.sh "${USERNAME}"
     fi
 
+    if [[ "${INSTALL_VISUALVM}" = "true" ]]; then
+        installers/visualvm.sh "${USERNAME}"
+    fi
+
+    if [[ "${INSTALL_JDK_MISSION_CONTROL}" = "true" ]]; then
+        installers/jdk-mission-control.sh "${USERNAME}"
+    fi
 }
 
 install
