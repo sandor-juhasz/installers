@@ -10,7 +10,7 @@
 set -e
 
 USERNAME=${1:$(id -un)}
-
+DBT_CORE_PLUGINS=${2:-""}
 source lib/common.sh
 
 cat <<EOF
@@ -18,6 +18,7 @@ Installing dbt Core...
 ===========================
 Parameters:
    USERNAME: $USERNAME
+   DBT_CORE_PLUGINS: $DBT_CORE_PLUGINS
 
 EOF
 
@@ -28,5 +29,15 @@ su --login "$USERNAME" <<EOF
     fi
 
     pipx install dbt-core
+
+    if [[ ! -z "$DBT_CORE_PLUGINS" ]]; then
+       echo "DBT Plugins found."
+       for plugin in ${DBT_CORE_PLUGINS}; do
+          echo Installing "\$plugin"
+          pipx inject dbt-core "\$plugin"
+       done
+    else
+       echo "No plugins were specified."
+    fi   
 EOF
 
