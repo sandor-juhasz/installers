@@ -16,12 +16,12 @@ function install() {
     
     if [[ "${INSTALL_DBT_CORE}" == "true" ]]; then
         echo "Looking for installed Python feature..."
-        if ! which pyenv >/dev/null; then
+        if [[ ! -d "/home/${USERNAME}/.pyenv" ]]; then
             echo "Python feature was not found, installing with System python..."
             export DEFAULT_PYTHON_VERSION="system"
             features/python-base-environment.sh
         else
-            echo "Pyenv was found, assuming the Python feature is installed."
+            echo "Pyenv was found in the users home directory, assuming the Python feature is installed properly."
         fi
         installers/dbt-core.sh "${USERNAME}" "${DBT_CORE_PLUGINS}"
     fi    
