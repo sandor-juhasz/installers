@@ -15,8 +15,14 @@ function install() {
     installers/shell-base.sh "${USERNAME}"
     
     if [[ "${INSTALL_DBT_CORE}" == "true" ]]; then
-        export DEFAULT_PYTHON_VERSION="system"
-        features/python-base-environment.sh
+        echo "Looking for installed Python feature..."
+        if ! which pyenv >/dev/null; then
+            echo "Python feature was not found, installing with System python..."
+            export DEFAULT_PYTHON_VERSION="system"
+            features/python-base-environment.sh
+        else
+            echo "Pyenv was found, assuming the Python feature is installed."
+        fi
         installers/dbt-core.sh "${USERNAME}" "${DBT_CORE_PLUGINS}"
     fi    
 }
