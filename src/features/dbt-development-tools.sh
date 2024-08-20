@@ -6,6 +6,7 @@
 #    USERNAME                The user name of the user for which the feature is installed.
 #    INSTALL_DBT_CORE         "true" if dbt core needs to be installed.
 #    DBT_CORE_PLUGINS        Space separated list of plugin names.
+#    DBT_CORE_INSTALL_METHOD Possible values: "user-python", "pyenv-virtualenv", "pipx"
 #    INSTALL_DBT_CLOUD_CLI   "true" if dbt cloud cli needs to be installed. "false" by default
 #    DBT_CLOUD_CLI_VERSION   Version number.
 #    DBT_CLOUD_CLI_ALIAS     The name of the executable of the dbt cloud cli. "dbt" by default
@@ -15,6 +16,7 @@
 
 export INSTALL_SNOWSQL=${INSTALL_SNOWSQL:-"true"}
 export DBT_CORE_PLUGINS=${DBT_CORE_PLUGINS:-""}
+export DBT_CORE_INSTALL_METHOD="${DBT_CORE_INSTALL_METHOD:-"pyenv-virtualenv"}"
 export INSTALL_DBT_CLOUD_CLI=${INSTALL_DBT_CLOUD_CLI:-"false"}
 export DBT_CLOUD_CLI_VERSION=${DBT_CLOUD_CLI_VERSION:-"0.38.10"}
 export DBT_CLOUD_CLI_ALIAS=${DBT_CLOUD_CLI_ALIAS:-"dbt"}
@@ -36,7 +38,7 @@ function install() {
         else
             echo "Pyenv was found in the users home directory, assuming the Python feature is installed properly."
         fi
-        installers/dbt-core.sh "${USERNAME}" "${DBT_CORE_PLUGINS}"
+        installers/dbt-core.sh "${USERNAME}" "${DBT_CORE_PLUGINS}" "${DBT_CORE_INSTALL_METHOD}"
     fi    
 
     if [[ "${INSTALL_DBT_CLOUD_CLI}" == "true" ]]; then
