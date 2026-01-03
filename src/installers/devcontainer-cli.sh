@@ -12,7 +12,7 @@ USERNAME=${1:$(id -un)}
 source lib/common.sh
 
 cat <<EOF
-Installing AWS CDK...
+Installing Devcontainer CLI...
 =====================
 Parameters:
    USERNAME: $USERNAME
