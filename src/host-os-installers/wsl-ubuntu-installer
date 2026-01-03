@@ -95,9 +95,9 @@ if [[ "$INSTALL_DOCKER_ENGINE" == true ]]; then
     installers/docker-engine.sh "${DEFAULT_USERNAME}"
 fi
 installers/vscode.sh
-installers/nvm.sh
-installers/node.sh
-installers/devcontainer-cli.sh
+installers/nvm.sh "${DEFAULT_USERNAME}"
+installers/node.sh "${DEFAULT_USERNAME}"
+installers/devcontainer-cli.sh "${DEFAULT_USERNAME}"
 
 #
 # Git settings
