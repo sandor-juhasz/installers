@@ -88,10 +88,16 @@ installers/pyenv.sh
 installers/python.sh "${DEFAULT_USERNAME}" system
 installers/pipx.sh "${DEFAULT_USERNAME}"
 
+#
+# Docker, DevContainer and VSCode installation
+#
 if [[ "$INSTALL_DOCKER_ENGINE" == true ]]; then
     installers/docker-engine.sh "${DEFAULT_USERNAME}"
 fi
 installers/vscode.sh
+installers/nvm.sh
+installers/node.sh
+installers/devcontainer-cli.sh
 
 #
 # Git settings
@@ -99,7 +105,9 @@ installers/vscode.sh
 installers/gh.sh
 installers/git-credential-manager.sh "${DEFAULT_USERNAME}"
 
-
+#
+# Own customizations
+#
 if [[ "$INSTALL_DOTFILES" == true ]]; then
     installers/devpm.sh "${DEFAULT_USERNAME}"
     installers/dotfiles.sh "${DEFAULT_USERNAME}"
