@@ -27,7 +27,7 @@ su --login "$USERNAME" <<EOF
         exit 1;
     fi
 
-    pipx install snowflake-cli-labs
+    pipx install snowflake-cli
 
     snow --show-completion >~/.config/bashrc.d/snowflake-cli.sh
     snow --show-completion >~/.config/zshrc.d/snowflake-cli.sh
