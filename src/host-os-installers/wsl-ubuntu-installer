@@ -112,3 +112,8 @@ if [[ "$INSTALL_DOTFILES" == true ]]; then
     installers/devpm.sh "${DEFAULT_USERNAME}"
     installers/dotfiles.sh "${DEFAULT_USERNAME}"
 fi
+
+#
+# Common utilitites
+#
+apt-get -y install jq
