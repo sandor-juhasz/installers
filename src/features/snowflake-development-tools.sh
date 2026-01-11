@@ -5,7 +5,10 @@
 # Environment:
 #    USERNAME                The user name of the user for which the feature is installed.
 #    INSTALL_SNOWSQL         "true" if SnowSQL needs to be installed.
+#    INSTALL_SNOWFLAKE_CLI   "true" if Snowflake CLI needs to be installed.
 #    SNOWSQL_VERSION         The version of SnowSQL to be installed.
+#    SNOWFLAKE_CLI_VERSION   The version of Snowflake CLI. If the value is "pipx",
+#                            the latest version is installed from PyPI using pipx.
 #
 
 export INSTALL_SNOWSQL=${INSTALL_SNOWSQL:-"true"}
@@ -19,9 +22,11 @@ function install() {
     fi    
 
     if [[ "${INSTALL_SNOWFLAKE_CLI}" == "true" ]]; then
-        export DEFAULT_PYTHON_VERSION="system"
-        features/python-base-environment.sh
-        installers/snowflake-cli.sh "${USERNAME}"
+        if [[ "${SNOWFLAKE_CLI_VERSION}" == "pipx" ]]; then 
+            export DEFAULT_PYTHON_VERSION="system"
+            features/python-base-environment.sh
+        fi
+        installers/snowflake-cli.sh "${USERNAME}" "${SNOWFLAKE_CLI_VERSION}"
     fi    
 }
 
