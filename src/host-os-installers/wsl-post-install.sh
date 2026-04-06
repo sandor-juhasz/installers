@@ -7,6 +7,7 @@ DEFAULT_PASSWORD=welcome
 INSTALL_DOCKER_ENGINE=false
 INSTALL_DOTFILES=false
 INSTALL_ZSH=false
+INSTALL_CLAUDE_CODE=false
 for i in "$@"; do
   case $i in
     --install-zsh=*)
@@ -19,6 +20,10 @@ for i in "$@"; do
       ;;
     --install-docker-engine=*)
       INSTALL_DOCKER_ENGINE="${i#*=}"
+      shift
+      ;;
+    --install-claude-code=*)
+      INSTALL_CLAUDE_CODE="${i#*=}"
       shift
       ;;
     --default-username=*)
@@ -49,6 +54,9 @@ if [[ "$INSTALL_ZSH" == "true" ]]; then
 fi
 if [[ "$INSTALL_DOCKER_ENGINE" == "true" ]]; then
   optargs="$optargs --install-docker-engine"
+fi
+if [[ "$INSTALL_CLAUDE_CODE" == "true" ]]; then
+  optargs="$optargs --install-claude-code"
 fi
 
 cd /tmp

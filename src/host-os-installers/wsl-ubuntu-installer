@@ -1,14 +1,15 @@
 #!/bin/bash
 ###############################################################################
-# Installs everything needed to work with development containers on a 
+# Installs everything needed to work with development containers on a
 # WSL Ubuntu 22.04 VM.
 #
-# Parameters    
+# Parameters
 #     --default-username=username   Default: "developer"
 #     --default-password=password   Default: "welcome"
-#     --install-docker-engine       Default: "false" 
+#     --install-docker-engine       Default: "false"
 #     --install-dotfiles            Default: "false"
 #     --install-zsh                 Default: "false"
+#     --install-claude-code         Default: "false"
 #
 # Usage:
 # 1. Log into a freshly installed WSL Ubuntu 22.04.
@@ -31,6 +32,7 @@ DEFAULT_PASSWORD=welcome
 INSTALL_DOCKER_ENGINE=false
 INSTALL_DOTFILES=false
 INSTALL_ZSH=false
+INSTALL_CLAUDE_CODE=false
 for i in "$@"; do
   case $i in
     --install-zsh)
@@ -43,6 +45,10 @@ for i in "$@"; do
       ;;
     --install-docker-engine)
       INSTALL_DOCKER_ENGINE=true
+      shift # past argument=value
+      ;;
+    --install-claude-code)
+      INSTALL_CLAUDE_CODE=true
       shift # past argument=value
       ;;
     --default-username=*)
@@ -70,6 +76,7 @@ echo "   Default password:      $DEFAULT_PASSWORD"
 echo "   Install Docker Engine: $INSTALL_DOCKER_ENGINE"
 echo "   Install Dotfiles:      $INSTALL_DOTFILES"
 echo "   Install ZSH:           $INSTALL_ZSH"
+echo "   Install Claude Code:   $INSTALL_CLAUDE_CODE"
 
 apt-get update
 apt-get -y upgrade
@@ -117,3 +124,10 @@ fi
 # Common utilitites
 #
 apt-get -y install jq
+
+#
+# Claude Code
+#
+if [[ "$INSTALL_CLAUDE_CODE" == true ]]; then
+    installers/claude-code.sh "${DEFAULT_USERNAME}"
+fi
