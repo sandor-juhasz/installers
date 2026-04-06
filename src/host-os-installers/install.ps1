@@ -24,6 +24,7 @@ $wsl_default_password="welcome"
 $install_dotfiles="true"
 $install_zsh="true"
 $install_docker_engine="true"
+$install_claude_code="false"
 
 Write-Output ""
 Write-Output "Parameters:"
@@ -35,7 +36,7 @@ Write-Output "   WSL Password:                   $($wsl_default_password)"
 Write-Output "   Install Sanyi's dotfiles:       $($install_dotfiles)"
 Write-Output "   Install ZSH and set it default: $($install_zsh)"
 Write-Output "   Install Docker Engine:          $($install_docker_engine)"
-Write-Output ""
+Write-Output "   Install Claude Code:            $($install_claude_code)"
 
 
 $confirm = Read-Host -Prompt "Do you wish to continue? y/n"
@@ -63,7 +64,7 @@ Write-Output "Importing WSL image..."
 wsl --import $wsl_distribution_name $wsl_distribution_home $wsl_image_path
 
 Write-Output "Running WSL post-install script"
-wsl -d $wsl_distribution_name -e ./wsl-post-install.sh "--default-username=$($wsl_default_username)" "--default-password=$($wsl_default_password)" "--install-dotfiles=$($install_dotfiles)" "--install-zsh=$($install_zsh)" "--install-docker-engine=$($install_docker_engine)"
+wsl -d $wsl_distribution_name -e ./wsl-post-install.sh "--default-username=$($wsl_default_username)" "--default-password=$($wsl_default_password)" "--install-dotfiles=$($install_dotfiles)" "--install-zsh=$($install_zsh)" "--install-docker-engine=$($install_docker_engine)" "--install-claude-code=$($install_claude_code)"
 
 Write-Output "Stopping WSL subsystem to reload new settings"
 wsl --terminate $wsl_distribution_name
