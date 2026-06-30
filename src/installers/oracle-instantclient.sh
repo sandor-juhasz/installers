@@ -26,7 +26,7 @@ function install_component() {
     local filename=$(echo "$url" | rev | cut -d '/' -f 1 | rev)
     echo "Installing: $filename..."
     download "$url" "$filename"
-    unzip "$filename"
+    unzip -o "$filename"
     rm "$filename"
 }
 
